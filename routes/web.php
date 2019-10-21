@@ -36,11 +36,7 @@ Route::post('/task', function (Request $request) {
  * Добавить новую задачу
  */
 Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();
-
-    return view('tasks', [
-        'tasks' => $tasks
-    ]);
+    return view('welcome');
 });
 
 /**
@@ -51,3 +47,11 @@ Route::delete('/task/{task}', function (Task $task) {
 
     return redirect('/');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/tasks', 'TaskController@index');
+Route::post('/task', 'TaskController@store');
+Route::delete('/task/{task}', 'TaskController@destroy');
